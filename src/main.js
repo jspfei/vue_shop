@@ -4,8 +4,25 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import './assets/css/global.css'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import './plugins/element.js'
+
+import axios from 'axios'
+// //配置请求的根路径 使用mock数据的时候，baseURL 就不要设置 否则会报错 404
+// axios.defaults.baseURL = 'http://localhost:8081/'
+// 返回状态判断 
+axios.interceptors.response.use((res) => {
+  if (!res.data.success) {
+    return Promise.reject(res)
+  }
+  return res
+}, (error) => {
+  // 404等问题可以在这里处理
+  return Promise.reject(error)
+})
+Vue.prototype.$http = axios;
+
+//引入Mock
+require('./mock')
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
