@@ -1,0 +1,7 @@
+{
+  //配置eslint 
+  //结束的时候不加 ;
+  "semi":false,
+  //使用单引号
+  "singleQuote":true
+}

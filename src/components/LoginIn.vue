@@ -36,46 +36,50 @@ export default {
     return {
       //这是登录表单的数据绑定项
       loginForm: {
-        username: "",
-        password: ""
+        username: 'admin',
+        password: '123456'
       },
       //这是表单的验证规则对象
       loginFormRules: {
         //验证用户名是否合法
         username: [
-          { require: true, message: "请输入登录名称", trigger: "blur" },
-          { min: 3, max: 10, message: "长度在 3 到 10 个字符", trigger: "blur" }
+          { require: true, message: '请输入登录名称', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
         ],
         //验证密码是否合法
         password: [
-          { require: true, message: "请输入登录密码", trigger: "blur" },
-          { min: 6, max: 15, message: "长度在 6 到 15 个字符", trigger: "blur" }
+          { require: true, message: '请输入登录密码', trigger: 'blur' },
+          { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
         ]
       }
-    };
+    }
   },
   methods: {
     //点击重置按钮，重置登录表单
     resetLoginForm() {
       // console.log(this);
-      this.$refs.loginFormRef.resetFields;
+      this.$refs.loginFormRef.resetFields
     },
     //登录 验证
     login() {
       this.$refs.loginFormRef.validate(async validate => {
-        if (!validate) return;
+        if (!validate) return
         const { data: res } = await this.$http.post(
-          "user/userInfo",
+          'user/userInfo',
           this.loginForm
-        );
+        )
 
-        if (!res.success) return console.log("登录失败");
+        if (!res.success) return this.$message.error('登录失败！')
+        this.$message.success('登录成功！')
 
-        console.log("登录成功");
-      });
+        console.log(res)
+        window.sessionStorage.setItem('token', res.data.token)
+
+        this.$router.push('/home')
+      })
     }
   }
-};
+}
 </script>
   <style lang="less" scoped>
 .login_container {
