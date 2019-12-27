@@ -8,6 +8,7 @@ import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
 import 'element-ui/lib/theme-chalk/index.css'
 // 设置语言
+
 locale.use(lang)
 
 // 引入组件
