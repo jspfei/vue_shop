@@ -18,8 +18,21 @@ Mock.mock('users', 'post', (option) => {
   console.log("" + option.data)
   var jsonstr = require('./json/users');
   // var userslist = JSON.parse(jsonstr);
-
   var data = JSON.parse(option.body)
+  if (data.params.query != '') {
+    var users = jsonstr.data.users;
+    for (var i = 0; i < users.length; i++) {
+      console.log(users[i].username)
+      if (data.params.query != users[i].username) {
+        users.splice(i, 1);
+      }
+
+    }
+    jsonstr.data.users = users;
+    jsonstr.msg = "查询用户成功"
+    return jsonstr;
+  }
+
   var size = data.params.pagesize;
   var pagenum = data.params.pagenum;
   if (size >= jsonstr.data.users.length) {
