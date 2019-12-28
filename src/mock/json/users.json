@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "msg": "获取管理员列表成功",
+  "data": {
+    "pagenum": 1,
+    "total": 4,
+    "users": [
+      {
+        "id": 500,
+        "role_name": "超级管理员",
+        "username": "admin",
+        "create_time": 1577515220,
+        "mobile": "1112222",
+        "email": "sksksks@qq.com",
+        "mg_state": true
+      },
+      {
+        "id": 502,
+        "role_name": "测试人员",
+        "username": "linke",
+        "create_time": 1577517220,
+        "mobile": "1312313131",
+        "email": "ffffff@qq.com",
+        "mg_state": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": 125,
+      "authName": "用户管理",
+      "path": "users",
+      "children": [
+        {
+          "id": 110,
+          "authName": "用户列表",
+          "path": "users",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "authName": "权限管理",
+      "path": "rights",
+      "children": [
+        {
+          "id": 104,
+          "authName": "角色列表",
+          "path": "roles",
+          "children": []
+        },
+        {
+          "id": 105,
+          "authName": "权限列表",
+          "path": "powers",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": 101,
+      "authName": "商品管理",
+      "path": "goods",
+      "children": [
+        {
+          "id": 106,
+          "authName": "商品列表",
+          "path": "goods",
+          "children": []
+        },
+        {
+          "id": 107,
+          "authName": "分类参数",
+          "path": "class",
+          "children": []
+        },
+        {
+          "id": 108,
+          "authName": "商品分类",
+          "path": "goodsclass",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "authName": "订单管理",
+      "path": "orders",
+      "children": [
+        {
+          "id": 109,
+          "authName": "订单列表",
+          "path": "orders",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": 145,
+      "authName": "数据统计",
+      "path": "reports",
+      "children": [
+        {
+          "id": 146,
+          "authName": "数据报表",
+          "path": "reports",
+          "children": []
+        }
+      ]
+    }
+  ],
+  "msg": "获取菜单列表成功"
+}

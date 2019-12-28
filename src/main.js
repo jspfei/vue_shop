@@ -9,7 +9,16 @@ import './plugins/element.js'
 import axios from 'axios'
 // //配置请求的根路径 使用mock数据的时候，baseURL 就不要设置 否则会报错 404
 // axios.defaults.baseURL = 'http://localhost:8081/'
+
+//axios请求拦截
+axios.interceptors.request.use(config => {
+
+  config.headers.Authorization = window.sessionStorage.getItem('token')
+  console.log(config)
+  return config;
+})
 // 返回状态判断 
+
 axios.interceptors.response.use((res) => {
   if (!res.data.success) {
     return Promise.reject(res)
