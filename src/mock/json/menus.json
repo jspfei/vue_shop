@@ -28,7 +28,7 @@
         {
           "id": 105,
           "authName": "权限列表",
-          "path": "powers",
+          "path": "rights",
           "children": []
         }
       ]

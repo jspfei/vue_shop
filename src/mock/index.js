@@ -135,6 +135,10 @@ Mock.mock('users/delete', 'post', (option) => {
 })
 
 
+//获取权限列表
+Mock.mock('rights/list', 'get', (option) => {
 
+  return require('./json/rights');;
+})
 
 export default Mock;

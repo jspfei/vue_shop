@@ -1,0 +1,111 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": 101,
+      "authName": "商品管理",
+      "level": "0",
+      "pid": 0,
+      "path": "goods"
+    },
+    {
+      "id": 102,
+      "authName": "订单管理",
+      "level": "0",
+      "pid": 0,
+      "path": "orders"
+    },
+    {
+      "id": 125,
+      "authName": "用户管理",
+      "path": "users",
+      "pid": 0,
+      "level": "0"
+    },
+    {
+      "id": 145,
+      "authName": "数据统计",
+      "level": "0",
+      "pid": 0,
+      "path": "reports"
+    },
+    {
+      "id": 110,
+      "authName": "用户列表",
+      "path": "users",
+      "level": "1",
+      "pid": 0
+    },
+    {
+      "id": 104,
+      "authName": "角色列表",
+      "path": "roles",
+      "level": "1",
+      "pid": 0
+    },
+    {
+      "id": 105,
+      "authName": "权限列表",
+      "path": "rights",
+      "level": "1",
+      "pid": 0
+    },
+    {
+      "id": 106,
+      "authName": "商品列表",
+      "path": "goods",
+      "level": "1",
+      "pid": 0
+    },
+    {
+      "id": 107,
+      "authName": "分类参数",
+      "path": "class",
+      "level": "1",
+      "pid": 0
+    },
+    {
+      "id": 108,
+      "authName": "商品分类",
+      "path": "goodsclass",
+      "level": "1",
+      "pid": 0
+    },
+    {
+      "id": 109,
+      "authName": "订单列表",
+      "path": "orders",
+      "level": "1",
+      "pid": 0
+    },
+    {
+      "id": 146,
+      "authName": "数据报表",
+      "path": "reports",
+      "level": "0",
+      "pid": 0
+    },
+    {
+      "id": 117,
+      "authName": "添加用户",
+      "level": "3",
+      "pid": 0,
+      "path": "users"
+    },
+    {
+      "id": 118,
+      "authName": "修改用户",
+      "level": "3",
+      "pid": 0,
+      "path": "users"
+    },
+    {
+      "id": 119,
+      "authName": "删除用户",
+      "level": "3",
+      "pid": 0,
+      "path": "users"
+    }
+  ],
+  "msg": "获取权限列表成功"
+}
