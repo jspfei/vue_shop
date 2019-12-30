@@ -1,4 +1,5 @@
 const Mock = require('mockjs');
+var userJson = require('./json/users');
 //登录
 Mock.mock('login', 'post', (option) => {
   //请求参数
@@ -16,13 +17,13 @@ Mock.mock('menus', 'get', (option) => {
 Mock.mock('users', 'post', (option) => {
   //请求参数
   console.log("" + option.data)
-  var jsonstr = require('./json/users');
+  var jsonstr = userJson;
   // var userslist = JSON.parse(jsonstr);
   var data = JSON.parse(option.body)
   if (data.params.query != '') {
     var users = jsonstr.data.users;
     for (var i = 0; i < users.length; i++) {
-      console.log(users[i].username)
+
       if (data.params.query != users[i].username) {
         users.splice(i, 1);
       }
@@ -54,7 +55,7 @@ Mock.mock('users', 'post', (option) => {
 Mock.mock('users/updatestate', 'post', (option) => {
   //请求参数
 
-  var jsonstr = require('./json/users');
+  var jsonstr = userJson
   var data = JSON.parse(option.body)
   var id = data.userid;
   var state = data.state;
@@ -67,4 +68,73 @@ Mock.mock('users/updatestate', 'post', (option) => {
 
   return jsonstr;
 })
+
+//添加用户
+Mock.mock('users/adduser', 'post', (option) => {
+  var jsonstr = userJson
+  var data = JSON.parse(option.body)
+
+  var user = data
+  user.role_name = "超级管理员";
+  user.id = 502;
+  user.create_time = 1577535220;
+  user.mg_state = true;
+  jsonstr.data.users.push(user)
+  return jsonstr;
+})
+
+//查询用户
+Mock.mock('users/getuser', "post", (option) => {
+  var jsonstr = userJson;
+  var data = JSON.parse(option.body)
+  var id = data.id;
+  var users = jsonstr.data.users;
+  var user = null;
+  for (var i = 0; i < jsonstr.data.users.length; i++) {
+    if (jsonstr.data.users[i].id == id) {
+      user = users[i];
+      break;
+    }
+  }
+  jsonstr.data.users = [user];
+  jsonstr.msg = "查询用户成功"
+  return jsonstr;
+})
+
+
+//修改用户信息
+Mock.mock('users/edit', 'post', (option) => {
+  var jsonstr = userJson;
+  var data = JSON.parse(option.body)
+  for (var i = 0; i < jsonstr.data.users.length; i++) {
+    if (jsonstr.data.users[i].id != data.id) {
+      jsonstr.data.users[i].email = data.email;
+      jsonstr.data.users[i].mobile = data.mobile;
+    }
+  }
+
+  jsonstr.msg = "修改用户成功"
+
+  return jsonstr;
+})
+
+//删除用户信息
+Mock.mock('users/delete', 'post', (option) => {
+  var jsonstr = userJson;
+  var data = JSON.parse(option.body)
+  var users = jsonstr.data.users;
+  for (var i = 0; i < users.length; i++) {
+    if (jsonstr.data.users[i].id != data.id) {
+      users.splice(i, 1);
+    }
+
+  }
+  jsonstr.data.users = users;
+  jsonstr.msg = "查询用户成功"
+  return jsonstr;
+})
+
+
+
+
 export default Mock;
