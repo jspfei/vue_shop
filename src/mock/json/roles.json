@@ -1,0 +1,116 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": 20,
+      "roleName": "主管",
+      "roleDesc": "技术负责人",
+      "children": [
+        {
+          "id": 101,
+          "authName": "商品管理",
+          "path": null,
+          "children": [
+            {
+              "id": 104,
+              "authName": "商品列表",
+              "path": null,
+              "children": [
+                {
+                  "id": 105,
+                  "authName": "添加商品",
+                  "path": null
+                },
+                {
+                  "id": 106,
+                  "authName": "删除商品",
+                  "path": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 110,
+          "authName": "订单管理",
+          "path": null,
+          "children": [
+            {
+              "id": 111,
+              "authName": "订单列表",
+              "path": null,
+              "children": [
+                {
+                  "id": 112,
+                  "authName": "打印订单",
+                  "path": null
+                },
+                {
+                  "id": 113,
+                  "authName": "修改订单",
+                  "path": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "roleName": "运营",
+      "roleDesc": "运营人员",
+      "children": [
+        {
+          "id": 101,
+          "authName": "商品管理",
+          "path": null,
+          "children": [
+            {
+              "id": 104,
+              "authName": "商品列表",
+              "path": null,
+              "children": [
+                {
+                  "id": 105,
+                  "authName": "添加商品",
+                  "path": null
+                },
+                {
+                  "id": 106,
+                  "authName": "删除商品",
+                  "path": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 110,
+          "authName": "订单管理",
+          "path": null,
+          "children": [
+            {
+              "id": 111,
+              "authName": "订单列表",
+              "path": null,
+              "children": [
+                {
+                  "id": 112,
+                  "authName": "打印订单",
+                  "path": null
+                },
+                {
+                  "id": 113,
+                  "authName": "修改订单",
+                  "path": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "msg": "获取角色列表成功"
+}

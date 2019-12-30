@@ -141,4 +141,11 @@ Mock.mock('rights/list', 'get', (option) => {
   return require('./json/rights');;
 })
 
+//获取角色列表
+Mock.mock('rights/roles', 'get', (option) => {
+
+  return require('./json/roles');;
+})
+
+
 export default Mock;
