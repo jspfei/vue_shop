@@ -1,6 +1,9 @@
 const Mock = require('mockjs');
 var userJson = require('./json/users');
 var rolesJson = require('./json/roles');
+var rightsTreeJson = require('./json/rightstree');
+
+var tree = require('./json/tree');
 //登录
 Mock.mock('login', 'post', (option) => {
   //请求参数
@@ -153,28 +156,96 @@ Mock.mock('rights/delete', 'post', (option) => {
   var jsonstr = rolesJson;
   var data = JSON.parse(option.body)
   console.log(data)
+  var selectIndex = 0;
   for (var i = 0; i < jsonstr.data.length; i++) {
     var item = jsonstr.data[i];
     if (item.id == data.roleid) {
+      selectIndex = i;
       for (var j = 0; j < item.children.length; j++) {
         var subItem = item.children[j];
-        for (var z = 0; z < subItem.children.length; z++) {
-          var rightsItem = subItem.children[z];
-          for (var k = 0; k < rightsItem.children.length; k++) {
-            var subrightsItem = rightsItem.children[k]
-            if (subrightsItem.id == data.rightid) {
-              rightsItem.children.splice(k, 1);
-
+        if (subItem.id == data.rightid) {
+          item.children.splice(j, 1);
+          break;
+        } else {
+          for (var z = 0; z < subItem.children.length; z++) {
+            var rightsItem = subItem.children[z];
+            if (rightsItem.id == data.rightid) {
+              subItem.children.splice(z, 1);
+              break;
+            } else {
+              for (var k = 0; k < rightsItem.children.length; k++) {
+                var subrightsItem = rightsItem.children[k]
+                if (subrightsItem.id == data.rightid) {
+                  rightsItem.children.splice(k, 1);
+                  break;
+                }
+              }
             }
-          }
 
+
+          }
         }
+
       }
+      break;
     }
   }
 
-
+  jsonstr.result = jsonstr.data[selectIndex];
   return jsonstr;
+});
+
+//获取权限树
+Mock.mock('rights/tree', 'get', (option) => {
+  rightsTreeJson.data = require('./json/tree')
+  return rightsTreeJson;
 })
 
+function find(arr, fn) {
+  arr.forEach(item => {
+    if (item.children) {
+      find(item.children, fn)
+    } else {
+      if (fn(item)) {
+
+        //没有包含的权限删除掉
+        var index = arr.indexOf(item);
+        console.log(index);
+        if (index > -1) {
+          arr.splice(index, 1);
+        }
+      }
+    }
+  })
+
+  return arr;
+}
+
+//给角色分配权限
+Mock.mock('roles/rights', 'post', (option) => {
+  var data = JSON.parse(option.body);
+  var roleid = data.roleid;
+  var ids = data.ids;
+
+  //权限树
+  var roleRights = require("./json/tree");
+
+
+  //在所有权限列表中，过滤出用户包含的权限
+  var newArr = find(roleRights, item => {
+    return ids.indexOf(item.id) == -1
+  })
+
+  console.log(newArr)
+  //角色列表，根据角色id替换权限
+  var jsonstr = rolesJson;
+  for (var i = 0; i < jsonstr.data.length; i++) {
+    var item = jsonstr.data[i];
+    if (item.id == this.roleid) {
+      item.children = newArr;
+    }
+  }
+  console.log(jsonstr)
+  return jsonstr;
+})
 export default Mock;
