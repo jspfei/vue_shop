@@ -1,5 +1,6 @@
 const Mock = require('mockjs');
 var userJson = require('./json/users');
+var rolesJson = require('./json/roles');
 //登录
 Mock.mock('login', 'post', (option) => {
   //请求参数
@@ -144,8 +145,36 @@ Mock.mock('rights/list', 'get', (option) => {
 //获取角色列表
 Mock.mock('rights/roles', 'get', (option) => {
 
-  return require('./json/roles');;
+  return rolesJson;
 })
 
+//删除角色权限
+Mock.mock('rights/delete', 'post', (option) => {
+  var jsonstr = rolesJson;
+  var data = JSON.parse(option.body)
+  console.log(data)
+  for (var i = 0; i < jsonstr.data.length; i++) {
+    var item = jsonstr.data[i];
+    if (item.id == data.roleid) {
+      for (var j = 0; j < item.children.length; j++) {
+        var subItem = item.children[j];
+        for (var z = 0; z < subItem.children.length; z++) {
+          var rightsItem = subItem.children[z];
+          for (var k = 0; k < rightsItem.children.length; k++) {
+            var subrightsItem = rightsItem.children[k]
+            if (subrightsItem.id == data.rightid) {
+              rightsItem.children.splice(k, 1);
+
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+
+  return jsonstr;
+})
 
 export default Mock;
