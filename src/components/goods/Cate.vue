@@ -32,7 +32,9 @@ export default {
         pagesize: 5
       },
       //商品分类数据
-      catelist: []
+      catelist: [],
+      //
+      total: 0
     };
   },
   created() {
@@ -40,8 +42,16 @@ export default {
   },
   methods: {
     //获取商品分类数据
-    getCateList() {
-      this.$http.get("goods/cate", { params: this.queryInfo });
+    async getCateList() {
+      const { data: res } = await this.$http.get("goods/cate", {
+        params: this.queryInfo
+      });
+      if (!res.success) {
+        this.$message.error("获取商品分类出错");
+      }
+
+      this.catelist = res.data.cate;
+      this.total = res.data.total;
     }
   }
 };

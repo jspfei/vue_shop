@@ -1,5 +1,10 @@
 {
   "success": true,
-  "data": [],
+  "data": {
+    "pagenum": 1,
+    "pagesize": 5,
+    "total": 4,
+    "cate": []
+  },
   "msg": "获取商品分类"
 }

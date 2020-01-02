@@ -282,7 +282,7 @@ Mock.mock('roles/rights', 'post', (option) => {
 Mock.mock(RegExp(ApiPath.goods.catePath + ".*"), 'get', (options) => {
   console.debug(ApiPath.goods.catePath, options);
   var jsonstr = require('./json/good_cate')
-  jsonstr.data = cateJson;
+  jsonstr.data.cate = cateJson;
 
   return jsonstr
 })
