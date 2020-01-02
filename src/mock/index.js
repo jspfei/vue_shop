@@ -1,7 +1,10 @@
+import ApiPath from "@/api/ApiPath"
 const Mock = require('mockjs');
 var userJson = require('./json/users');
 var rolesJson = require('./json/roles');
 var rightsTreeJson = require('./json/rightstree');
+
+var cateJson = require('./json/cate')
 
 var tree = require('./json/tree');
 //登录
@@ -261,7 +264,7 @@ Mock.mock('roles/rights', 'post', (option) => {
     return ids.indexOf(item.id) == -1
   })
 
-  console.log(newArr)
+
   //角色列表，根据角色id替换权限
   var jsonstr = rolesJson;
   for (var i = 0; i < jsonstr.data.length; i++) {
@@ -272,5 +275,15 @@ Mock.mock('roles/rights', 'post', (option) => {
   }
   console.log(jsonstr)
   return jsonstr;
+})
+
+
+//获取商品分类数据
+Mock.mock(RegExp(ApiPath.goods.catePath + ".*"), 'get', (options) => {
+  console.debug(ApiPath.goods.catePath, options);
+  var jsonstr = require('./json/good_cate')
+  jsonstr.data = cateJson;
+
+  return jsonstr
 })
 export default Mock;

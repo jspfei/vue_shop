@@ -53,7 +53,7 @@
         {
           "id": 108,
           "authName": "商品分类",
-          "path": "goodsclass",
+          "path": "categories",
           "children": []
         }
       ]

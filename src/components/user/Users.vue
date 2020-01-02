@@ -117,7 +117,7 @@
 
     <!-- 分配角色对话框 -->
     <el-dialog title="分配角色" :visible.sync="setRoleDialogVisible" width="50%">
-      <div>
+      <div class="cateClass">
         <p>当前的用户：{{userInfo.username}}</p>
         <p>当前的角色：{{userInfo.role_name}}</p>
         <p>
@@ -403,4 +403,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.cateClass {
+  vertical-align: left;
+}
 </style>
