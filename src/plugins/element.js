@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import {
   Button, Select, FormItem, Form, Input, Message, Header, Container, Aside, Main, Menu, Submenu, MenuItem, Breadcrumb, BreadcrumbItem, Card, Row, Col,
-  Table, TableColumn, Switch, Tooltip, Pagination, Dialog, MessageBox, Tag, Tree
+  Table, TableColumn, Switch, Tooltip, Pagination, Dialog, MessageBox, Tag, Tree, Option
 } from 'element-ui'
 //导入弹开提示组件
 
@@ -40,6 +40,7 @@ Vue.use(Pagination)
 Vue.use(Dialog)
 Vue.use(Tag)
 Vue.use(Tree)
+Vue.use(Option)
 //全局挂载
 Vue.prototype.$message = Message;
 Vue.prototype.$confirm = MessageBox.confirm

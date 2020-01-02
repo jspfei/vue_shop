@@ -121,7 +121,32 @@ Mock.mock('users/edit', 'post', (option) => {
 
   return jsonstr;
 })
+//更改用户权限
+Mock.mock('users/role', 'post', (option) => {
+  var data = JSON.parse(option.body)
+  console.log(data)
+  var jsonstr = userJson;
+  //获取权限
+  var roleName = ''
+  for (var j = 0; j < rolesJson.data.length; j++) {
+    var role = rolesJson.data[j];
+    if (role.id == data.roleid) {
+      roleName = role.roleName;
+      break;
+    }
+  }
+  //修改用户权限
+  for (var i = 0; i < userJson.data.users.length; i++) {
+    var user = userJson.data.users[i];
+    if (user.id = data.userid) {
+      user.role_name = roleName;
+      break;
+    }
+  }
+  jsonstr.msg = "更改用户信息成功"
+  return jsonstr;
 
+})
 //删除用户信息
 Mock.mock('users/delete', 'post', (option) => {
   var jsonstr = userJson;
