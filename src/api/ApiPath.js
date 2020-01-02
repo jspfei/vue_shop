@@ -3,7 +3,8 @@ var user = {
 }
 var goods = {
   catePath: 'goods/cate',
-  parentCatePath: 'goods/parentcate'
+  parentCatePath: 'goods/parentcate',
+  addCatePath: 'goods/addcate'
 }
 var apipath = {
   user,

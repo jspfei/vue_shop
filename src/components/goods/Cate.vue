@@ -196,8 +196,22 @@ export default {
       this.addCateDialogVisible = true;
     },
     //保存分类信息
-    saveCateInfo() {
-      console.log(this.addCateForm);
+    async saveCateInfo() {
+      this.$refs.addCateFormRef.validate(valid => {
+        if (!valid) return;
+        //发生添加分类接口；
+      });
+
+      const { data: res } = await this.$http.post(
+        ApiPath.goods.addCatePath,
+        this.addCateForm
+      );
+
+      if (!res.success) {
+        this.$message.error("添加分类失败");
+      }
+      this.$message.success("添加分类成功");
+      this.getCateList();
       this.addCateDialogVisible = false;
     },
     //获取父级分类

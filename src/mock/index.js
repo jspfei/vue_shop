@@ -241,7 +241,19 @@ function find(arr, fn) {
     }
   }
 }
-
+function add(arr, fn, data) {
+  for (var i = 0; i < arr.length; i++) {
+    var item = arr[i];
+    if (fn(item)) {
+      item.children.push(data);
+      break;
+    } else {
+      if (arr[i].children) {
+        add(arr[i].children, fn, data)
+      }
+    }
+  }
+}
 //给角色分配权限
 Mock.mock('roles/rights', 'post', (option) => {
   var data = JSON.parse(option.body);
@@ -292,4 +304,25 @@ Mock.mock(RegExp(ApiPath.goods.parentCatePath), 'get', (options) => {
   jsonstr.msg = "获取父级分类列表成功"
   return jsonstr;
 })
+
+//添加分类
+Mock.mock(RegExp(ApiPath.goods.addCatePath), 'post', (options) => {
+  var data = JSON.parse(options.body)
+  var jsonstr = require('./json/result')
+  var subdata = {
+    "cate_id": data.cate_id * 10 + 1,
+    "cate_name": data.cate_name,
+    "cate_pid": 0,
+    "cate_level": data.cate_level,
+    "cate_deleted": false,
+  }
+  add(cateJson, item => {
+    return item.cate_id == subdata.cate_id
+  }, subdata)
+  jsonstr.data = cateJson;
+
+  jsonstr.msg = "添加数据成功"
+  return jsonstr;
+})
+
 export default Mock;
