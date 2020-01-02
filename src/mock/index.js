@@ -230,23 +230,16 @@ Mock.mock('rights/tree', 'get', (option) => {
 })
 
 function find(arr, fn) {
-  arr.forEach(item => {
-    if (item.children) {
-      find(item.children, fn)
+  for (var i = arr.length; i > 0; i--) {
+    var item = arr[i - 1];
+    if (fn(item)) {
+      arr.splice(i - 1, 1);
     } else {
-      if (fn(item)) {
-
-        //没有包含的权限删除掉
-        var index = arr.indexOf(item);
-        console.log(index);
-        if (index > -1) {
-          arr.splice(index, 1);
-        }
+      if (arr[i - 1].children) {
+        find(arr[i - 1].children, fn)
       }
     }
-  })
-
-  return arr;
+  }
 }
 
 //给角色分配权限
@@ -285,5 +278,18 @@ Mock.mock(RegExp(ApiPath.goods.catePath + ".*"), 'get', (options) => {
   jsonstr.data.cate = cateJson;
 
   return jsonstr
+})
+function clone(arr) {
+  return [].concat(arr);
+}
+//获取父级分类列表
+Mock.mock(RegExp(ApiPath.goods.parentCatePath), 'get', (options) => {
+  var jsonstr = require('./json/result')
+  var parrencate = require('./json/parentcate')
+
+  jsonstr.data = parrencate;
+
+  jsonstr.msg = "获取父级分类列表成功"
+  return jsonstr;
 })
 export default Mock;

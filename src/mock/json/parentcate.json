@@ -1,0 +1,89 @@
+[
+  {
+    "cate_id": 1,
+    "cate_name": "大家电",
+    "cate_pid": 0,
+    "cate_level": 0,
+    "cate_deleted": false,
+    "children": [
+      {
+        "cate_id": 2,
+        "cate_name": "电视",
+        "cate_pid": 0,
+        "cate_level": 1,
+        "cate_deleted": false
+      }
+    ]
+  },
+  {
+    "cate_id": 8,
+    "cate_name": "热门推荐",
+    "cate_pid": 0,
+    "cate_level": 0,
+    "cate_deleted": false,
+    "children": [
+      {
+        "cate_id": 9,
+        "cate_name": "电视",
+        "cate_pid": 0,
+        "cate_level": 1,
+        "cate_deleted": false
+      }
+    ]
+  },
+  {
+    "cate_id": 11,
+    "cate_name": "海外购",
+    "cate_pid": 0,
+    "cate_level": 0,
+    "cate_deleted": false,
+    "children": [
+      {
+        "cate_id": 12,
+        "cate_name": "口红",
+        "cate_pid": 0,
+        "cate_level": 1,
+        "cate_deleted": false
+      }
+    ]
+  },
+  {
+    "cate_id": 21,
+    "cate_name": "苏宁易购",
+    "cate_pid": 0,
+    "cate_level": 0,
+    "cate_deleted": false,
+    "children": [
+      {
+        "cate_id": 22,
+        "cate_name": "厨具",
+        "cate_pid": 0,
+        "cate_level": 1,
+        "cate_deleted": false
+      }
+    ]
+  },
+  {
+    "cate_id": 14,
+    "cate_name": "手机相机",
+    "cate_pid": 0,
+    "cate_level": 0,
+    "cate_deleted": false,
+    "children": [
+      {
+        "cate_id": 15,
+        "cate_name": "手机",
+        "cate_pid": 0,
+        "cate_level": 1,
+        "cate_deleted": false
+      },
+      {
+        "cate_id": 18,
+        "cate_name": "相机",
+        "cate_pid": 0,
+        "cate_level": 1,
+        "cate_deleted": false
+      }
+    ]
+  }
+]
