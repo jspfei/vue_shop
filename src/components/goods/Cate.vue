@@ -57,7 +57,12 @@
     </el-card>
 
     <!-- 添加分类的对话框 -->
-    <el-dialog title="添加分类" :visible.sync="addCateDialogVisible" width="50%">
+    <el-dialog
+      title="添加分类"
+      :visible.sync="addCateDialogVisible"
+      width="50%"
+      @close="addCateDialogClosed"
+    >
       <!-- 添加分类表单 -->
       <el-form
         :model="addCateForm"
@@ -151,7 +156,8 @@ export default {
         value: "cate_id",
         label: "cate_name",
         children: "children",
-        expandTrigger: "hover"
+        expandTrigger: "hover",
+        checkStrictly: true
       },
       //选中父子组件绑定数组
       selectKeys: []
@@ -191,6 +197,7 @@ export default {
     },
     //保存分类信息
     saveCateInfo() {
+      console.log(this.addCateForm);
       this.addCateDialogVisible = false;
     },
     //获取父级分类
@@ -208,6 +215,26 @@ export default {
     //选择项发生变化
     parentCateChange() {
       console.log(this.selectKeys);
+
+      if (this.selectKeys.length > 0) {
+        //父级分类id变化
+        this.addCateForm.cate_id = this.selectKeys[this.selectKeys.length - 1];
+        //分类等级赋值
+        this.addCateForm.cate_level = this.selectKeys.length;
+        return;
+      } else {
+        this.addCateForm.cate_id = 0;
+        this.addCateForm.cate_level = 0;
+      }
+    },
+    //监听关闭添加对话框,重置表单数据
+    addCateDialogClosed() {
+      this.$refs.addCateFormRef.resetFields();
+
+      this.selectKeys = [];
+      this.addCateForm.cate_level = 0;
+      this.addCateForm.cate_id = 0;
+      this.addCateForm.cate_name = "";
     }
   }
 };
