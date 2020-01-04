@@ -311,7 +311,7 @@ Mock.mock(RegExp(ApiPath.goods.addCatePath), 'post', (options) => {
   var data = JSON.parse(options.body)
   var jsonstr = require('./json/result')
   var subdata = {
-    "cate_id": data.cate_id * 10 + 1,
+    "cate_id": data.cate_id,
     "cate_name": data.cate_name,
     "cate_pid": 0,
     "cate_level": data.cate_level,
