@@ -4,7 +4,7 @@ var userJson = require('./json/users');
 var rolesJson = require('./json/roles');
 var rightsTreeJson = require('./json/rightstree');
 var paramsJson = require('./json/params')
-
+var goodsJson = require('./json/goods')
 var cateJson = require('./json/cate')
 
 var tree = require('./json/tree');
@@ -441,6 +441,26 @@ Mock.mock(RegExp(ApiPath.goods.deletePath), 'post', (options) => {
 
   return jsonstr;
 })
+
+//获取商品列表
+Mock.mock(RegExp(ApiPath.goods.goodsPath), 'post', (options) => {
+  var data = JSON.parse(options.body)
+  var size = data.pagesize;
+  var num = data.pagenum
+  var jsonstr = require('./json/result')
+  var returnJson = [];
+  var startIndex = (num - 1) * size;
+  var endIndex = (num * size) > goodsJson.length ? goodsJson.length : (num * size);
+  for (var i = startIndex; i < endIndex; i++) {
+    returnJson.push(goodsJson[i])
+  }
+
+  jsonstr.data = returnJson;
+  jsonstr.total = 17;
+  jsonstr.msg = "获取商品列表成功"
+  return jsonstr;
+})
+
 
 
 

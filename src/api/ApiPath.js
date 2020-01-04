@@ -8,7 +8,8 @@ var goods = {
   paramsPath: 'goods/params',
   attributesPath: 'goods/attributes',
   updatePath: 'goods/update',
-  deletePath: 'goods/delete'
+  deletePath: 'goods/delete',
+  goodsPath: 'goods/list'
 }
 var apipath = {
   user,
