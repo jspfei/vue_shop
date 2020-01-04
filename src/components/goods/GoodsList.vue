@@ -45,6 +45,7 @@
         :page-size="queryInfo.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
+        background
       ></el-pagination>
     </el-card>
   </div>
@@ -78,7 +79,7 @@ export default {
       if (!res.success) {
         this.$message.error("获取商品列表失败");
       }
-      this.$message.error("获取商品列表成功");
+      this.$message.success("获取商品列表成功");
       this.goodsList = res.data;
       this.total = res.total;
       console.log(this.goodsList);
