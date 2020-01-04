@@ -3,6 +3,7 @@ const Mock = require('mockjs');
 var userJson = require('./json/users');
 var rolesJson = require('./json/roles');
 var rightsTreeJson = require('./json/rightstree');
+var paramsJson = require('./json/params')
 
 var cateJson = require('./json/cate')
 
@@ -324,5 +325,123 @@ Mock.mock(RegExp(ApiPath.goods.addCatePath), 'post', (options) => {
   jsonstr.msg = "添加数据成功"
   return jsonstr;
 })
+
+//请求分类参数
+Mock.mock(RegExp(ApiPath.goods.paramsPath), 'post', (options) => {
+
+  var jsonstr = require('./json/result')
+  var params = JSON.parse(options.body);
+  var cate_id = params.id;
+  var sel = params.sel;
+  var data = [];
+
+  for (var i = 0; i < paramsJson.length; i++) {
+    var item = paramsJson[i];
+    if (cate_id == item.cate_id && sel == item.attr_sel) {
+      data.push(item)
+    }
+  }
+
+  jsonstr.data = data
+  jsonstr.msg = "获取分类参数成功"
+
+  return jsonstr;
+})
+
+//添加参数
+
+
+Mock.mock(RegExp(ApiPath.goods.attributesPath), 'post', (options) => {
+
+  var jsonstr = require('./json/result')
+  var params = JSON.parse(options.body);
+
+  var newItem = {
+    "attr_id": 1150,
+    "attr_name": params.attr_name,
+    "cate_id": params.cate_id,
+    "attr_sel": params.attr_sel,
+    "attr_writhe": "manual",
+    "attr_vals": params.attr_vals,
+  }
+  paramsJson.push(newItem)
+
+
+  jsonstr.data = newItem
+  jsonstr.msg = "添加分类参数成功"
+
+  return jsonstr;
+})
+
+//修改分类参数
+Mock.mock(RegExp(ApiPath.goods.paramsPath), 'post', (options) => {
+
+  var jsonstr = require('./json/result')
+  var params = JSON.parse(options.body);
+  var cate_id = params.id;
+  var sel = params.sel;
+  var data = [];
+
+  for (var i = 0; i < paramsJson.length; i++) {
+    var item = paramsJson[i];
+    if (cate_id == item.cate_id && sel == item.attr_sel) {
+      data.push(item)
+    }
+  }
+
+  jsonstr.data = data
+  jsonstr.msg = "获取分类参数成功"
+
+  return jsonstr;
+})
+
+//修改分类参数
+
+
+Mock.mock(RegExp(ApiPath.goods.updatePath), 'post', (options) => {
+
+  var jsonstr = require('./json/result')
+  var params = JSON.parse(options.body);
+
+
+  for (var i = 0; i < paramsJson.length; i++) {
+    var item = paramsJson[i];
+    if (params.attr_id == item.attr_id) {
+      paramsJson[i] = params;
+    }
+  }
+
+
+  jsonstr.data = params
+  jsonstr.msg = "添加分类参数成功"
+
+  return jsonstr;
+})
+
+//删除分类参数
+
+
+Mock.mock(RegExp(ApiPath.goods.deletePath), 'post', (options) => {
+
+  var jsonstr = require('./json/result')
+  var params = JSON.parse(options.body);
+
+
+  for (var i = 0; i < paramsJson.length; i++) {
+    var item = paramsJson[i];
+    if (params.attr_id == item.attr_id) {
+      paramsJson.splice(i, 1)
+      break;
+    }
+  }
+
+
+  jsonstr.data = params
+  jsonstr.msg = "删除分类参数成功"
+
+  return jsonstr;
+})
+
+
 
 export default Mock;

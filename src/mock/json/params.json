@@ -1,0 +1,42 @@
+[
+  {
+    "attr_id": "1101",
+    "attr_name": "板块",
+    "cate_id": 3,
+    "attr_sel": "many",
+    "attr_writhe": "list",
+    "attr_vals": "曲面 三星 Dell"
+  },
+  {
+    "attr_id": "1102",
+    "attr_name": "主板",
+    "cate_id": 3,
+    "attr_sel": "many",
+    "attr_writhe": "manual",
+    "attr_vals": ""
+  },
+  {
+    "attr_id": "1103",
+    "attr_name": "CPU",
+    "cate_id": 3,
+    "attr_sel": "only",
+    "attr_writhe": "manual",
+    "attr_vals": ""
+  },
+  {
+    "attr_id": "1104",
+    "attr_name": "显卡",
+    "cate_id": 3,
+    "attr_sel": "only",
+    "attr_writhe": "list",
+    "attr_vals": "Navada 技嘉 七彩虹,三星"
+  },
+  {
+    "attr_id": "1105",
+    "attr_name": "板块",
+    "cate_id": 3,
+    "attr_sel": "only",
+    "attr_writhe": "manual",
+    "attr_vals": ""
+  }
+]
