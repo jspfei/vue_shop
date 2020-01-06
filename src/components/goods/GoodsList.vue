@@ -52,6 +52,7 @@
         :total="total"
         background
       ></el-pagination>
+      
     </el-card>
   </div>
 </template>
