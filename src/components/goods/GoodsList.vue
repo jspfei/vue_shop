@@ -4,7 +4,7 @@
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>商品管理</el-breadcrumb-item>
-      <el-breadcrumb-item>商品 列表</el-breadcrumb-item>
+      <el-breadcrumb-item>商品列表</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- 卡片视图 -->
     <el-card>
@@ -15,7 +15,7 @@
           </el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary">添加商品</el-button>
+          <el-button type="primary" @click="addGoodPage()">添加商品</el-button>
         </el-col>
       </el-row>
 
@@ -31,7 +31,12 @@
           <template slot-scope="scope">
             <el-button type="primary" icon="el-icon-edit" size="mini">编辑</el-button>
 
-            <el-button type="danger" icon="el-icon-delete" size="mini">删除</el-button>
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              size="mini"
+              @click="removeById(scope.row.goods_id)"
+            >删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -79,7 +84,7 @@ export default {
       if (!res.success) {
         this.$message.error("获取商品列表失败");
       }
-      this.$message.success("获取商品列表成功");
+
       this.goodsList = res.data;
       this.total = res.total;
       console.log(this.goodsList);
@@ -91,6 +96,37 @@ export default {
     handleCurrentChange(newpage) {
       this.queryInfo.pagenum = newpage;
       this.getGoodsList();
+    },
+    //删除商品
+    async removeById(id) {
+      const confirmResult = await this.$confirm(
+        "此操作将永久删除改商品, 是否继续?",
+        "提示",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        }
+      ).catch(err => err);
+
+      if (confirmResult !== "confirm") {
+        return this.$message.info("已经取消删除");
+      }
+
+      const { data: res } = await this.$http.post(
+        ApiPath.goods.deleteGoodsPath,
+        {
+          id: id
+        }
+      );
+      if (!res.success) {
+        this.$message.error("删除商品失败");
+      }
+      this.$message.success("删除商品成功");
+      this.getGoodsList();
+    },
+    addGoodPage() {
+      this.$router.push("/goods/add");
     }
   }
 };

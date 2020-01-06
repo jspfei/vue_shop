@@ -462,6 +462,25 @@ Mock.mock(RegExp(ApiPath.goods.goodsPath), 'post', (options) => {
 })
 
 
+//删除上商品
+Mock.mock(RegExp(ApiPath.goods.deleteGoodsPath), 'post', (options) => {
+  var data = JSON.parse(options.body)
+  var id = data.id;
+
+  var jsonstr = require('./json/result')
+
+  for (var i = 0; i < goodsJson.length; i++) {
+    if (goodsJson[i].goods_id == id) {
+      goodsJson.splice(i, 1)
+      break;
+    }
+  }
+
+  jsonstr.data = goodsJson;
+  jsonstr.msg = "删除商品列表成功"
+  return jsonstr;
+})
+
 
 
 export default Mock;

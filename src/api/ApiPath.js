@@ -9,7 +9,8 @@ var goods = {
   attributesPath: 'goods/attributes',
   updatePath: 'goods/update',
   deletePath: 'goods/delete',
-  goodsPath: 'goods/list'
+  goodsPath: 'goods/list',
+  deleteGoodsPath: 'goods/deletegoods'
 }
 var apipath = {
   user,
