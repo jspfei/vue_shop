@@ -14,6 +14,10 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+
+// 导入 nprogress
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 // //配置请求的根路径 使用mock数据的时候，baseURL 就不要设置 否则会报错 404
 // axios.defaults.baseURL = 'http://localhost:8081/'
 
@@ -21,15 +25,18 @@ import 'quill/dist/quill.bubble.css'
 axios.interceptors.request.use(config => {
 
   config.headers.Authorization = window.sessionStorage.getItem('token')
+  NProgress.start();
   console.log(config)
   return config;
 })
 // 返回状态判断 
 
 axios.interceptors.response.use((res) => {
+  NProgress.done();
   if (!res.data.success) {
     return Promise.reject(res)
   }
+
   return res
 }, (error) => {
   // 404等问题可以在这里处理
