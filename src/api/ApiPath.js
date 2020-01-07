@@ -12,8 +12,12 @@ var goods = {
   goodsPath: 'goods/list',
   deleteGoodsPath: 'goods/deletegoods'
 }
+var orders = {
+  ordersPath: 'orders/list'
+}
 var apipath = {
   user,
-  goods
+  goods,
+  orders
 }
 export default apipath;
