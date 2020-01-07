@@ -59,22 +59,52 @@
           </el-tab-pane>
           <el-tab-pane label="商品参数" name="1">
             <!-- 渲染表单的item -->
+            <el-form-item :label="item.attr_name" v-for="item in manyTableData" :key="item.attr_id">
+              <!-- 复选框 -->
+              <el-checkbox-group v-model="item.attr_vals">
+                <el-checkbox :label="cb" v-for="(cb,i) in item.attr_vals" :key="i" border></el-checkbox>
+              </el-checkbox-group>
+            </el-form-item>
+          </el-tab-pane>
+          <el-tab-pane label="商品属性" name="2">
             <el-form-item
               :label="item.attr_name"
-              v-for="(item) in manyTableData"
+              v-for="item  in onlyTableData"
               :key="item.attr_id"
-            ></el-form-item>
+            >
+              <el-input :value="item.attr_vals"></el-input>
+            </el-form-item>
           </el-tab-pane>
-          <el-tab-pane label="商品属性" name="2">商品属性</el-tab-pane>
-          <el-tab-pane label="商品图片" name="3">商品图片</el-tab-pane>
-          <el-tab-pane label="商品内容" name="4">商品内容</el-tab-pane>
+          <el-tab-pane label="商品图片" name="3">
+            <el-upload
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              list-type="picture"
+              :on-success="handleSuccess"
+            >
+              <el-button size="small" type="primary">点击上传</el-button>
+              <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+            </el-upload>
+          </el-tab-pane>
+          <el-tab-pane label="商品内容" name="4">
+            <!-- 富文本输入 -->
+            <quill-editor v-model="addForm.goods_introduce"></quill-editor>
+            <el-button type="primary" class="btnAdd" @click="add">添加商品</el-button>
+          </el-tab-pane>
         </el-tabs>
       </el-form>
     </el-card>
+
+    <!-- 图片预览 -->
+    <el-dialog title="图片预览" :visible.sync="preDialogVisible" width="50%">
+      <img :src="preImgUrl" class="preImg" alt />
+    </el-dialog>
   </div>
 </template>
 <script>
 import ApiPath from "@/api/ApiPath";
+import _ from "lodash";
 export default {
   data() {
     return {
@@ -84,7 +114,8 @@ export default {
         goods_price: 0,
         goods_wegiht: 0,
         goods_number: 0,
-        goods_cate: []
+        goods_cate: [],
+        goods_introduce: ""
       },
       addFormRules: {
         goods_name: [
@@ -114,7 +145,11 @@ export default {
         expandTrigger: "hover"
       },
       //商品参数
-      manyTableData: []
+      manyTableData: [],
+      //静态属性
+      onlyTableData: [],
+      preImgUrl: "",
+      preDialogVisible: false
     };
   },
   created() {
@@ -150,33 +185,65 @@ export default {
       console.log(this.activeIndex);
       if (this.activeIndex === "1") {
         //访问动态参数面班
-        this.getCateParams();
+        this.getCateParams("many");
+      } else if (this.activeIndex === "2") {
+        this.getCateParams("only");
       }
     },
     //获取选中参数的
-    async getCateParams() {
+    async getCateParams(sel) {
       //根据所选分类的id 和当前面板获取分类数据
       const { data: res } = await this.$http.post(ApiPath.goods.paramsPath, {
         id: this.cateId,
-        sel: "many"
+        sel: sel
       });
 
       if (!res.success) {
         this.$message.error("获取分类参数失败");
       }
-      res.data.forEach(item => {
-        item.attr_vals = item.attr_vals ? item.attr_vals.split(" ") : [];
+      if (sel == "many") {
+        res.data.forEach(item => {
+          item.attr_vals = item.attr_vals ? item.attr_vals.split(" ") : [];
 
-        //控制文本框的显示
-        item.inputVisible = false;
-        //文本框中输入的值
-        item.inputValue = "";
-      });
-      console.log(res.data);
-      if (this.activeName === "many") {
-        this.manyTableData = res.data;
+          //控制文本框的显示
+          item.inputVisible = false;
+          //文本框中输入的值
+          item.inputValue = "";
+        });
       }
-      console.log(this.manyTableData);
+      console.log(res.data);
+      if (sel == "many") {
+        this.manyTableData = res.data;
+      } else {
+        this.onlyTableData = res.data;
+      }
+
+      console.log(this.onlyTableData);
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+      this.preImgUrl = file.url;
+      this.preDialogVisible = true;
+    },
+    handleSuccess(response) {
+      console.log(response);
+    },
+    add() {
+      this.$refs.addFormRef.validate(valid => {
+        if (!valid) {
+          this.$message.error("填写必要项目");
+          return;
+        }
+
+        //添加业务
+        const form = _.cloneDeep(this.addForm);
+        form.goods_cate = form.goods_cate.join(",");
+
+        console.log(form);
+      });
     }
   },
   computed: {
@@ -195,9 +262,17 @@ export default {
 .el-steps {
   margin-top: 15px;
 }
-.el-form-item__label {
-  position: absolute;
-  vertical-align: left;
-  text-align: left;
+
+.el-checkbox {
+  margin: 0 10px 0 0 !important;
+}
+.el-upload {
+  margin-top: 15px;
+}
+.preImg {
+  width: 100%;
+}
+.btnAdd {
+  margin-top: 15px;
 }
 </style>

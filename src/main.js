@@ -7,6 +7,13 @@ import './assets/css/global.css'
 import './plugins/element.js'
 import TreeTable from 'vue-table-with-tree-grid'
 import axios from 'axios'
+//导入富文本编辑
+import VueQuillEditor from 'vue-quill-editor'
+
+// require styles
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 // //配置请求的根路径 使用mock数据的时候，baseURL 就不要设置 否则会报错 404
 // axios.defaults.baseURL = 'http://localhost:8081/'
 
@@ -52,6 +59,8 @@ Vue.filter("dateFormat", function (orginVal) {
   return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
 
 })
+
+Vue.use(VueQuillEditor)
 
 /* eslint-disable no-new */
 new Vue({
